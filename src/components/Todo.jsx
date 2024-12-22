@@ -1,9 +1,11 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import TodoList from "./TodoList";
 
 const Todo = () => {
-  const [todo, setTodo] = useState([]);
 
+   
+    // if there is no todo in local storage, set todo to an empty array
+    const [todo, setTodo] = useState(JSON.parse(localStorage.getItem("todo")) || []);
   const ref = useRef();
 
   const handleAdd = () => {
@@ -28,6 +30,9 @@ const Todo = () => {
     text.style.decoration = "line-through"
 
   }
+  useEffect(() => {
+    localStorage.setItem("todo", JSON.stringify(todo))
+}, [todo])
 
   return (
     <>
